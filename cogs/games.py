@@ -34,17 +34,15 @@ class games(commands.Cog):
         for i in range(resultint):
             stringed_result += EMOJI
             if i == resultint-1:
-                blank_emojis: int = 11 - resultint
+                blank_emojis: int = 10 - resultint
                 for x in range(blank_emojis):
                     stringed_result += BLANK_EMOJI
         if resultint == 0:
             for i in range(10):
                 stringed_result += BLANK_EMOJI
-            embed.add_field(name=f"{ctx.author} <3 {member}", value=f"{resultint}% {stringed_result} RIP")
+            embed.add_field(name=f"{ctx.author} <3 {member}", value=f"{resultint}% {stringed_result} <:rip:871045842373591080>")
         else:
             embed.add_field(name=f"{ctx.author} <3 {member}", value=f"{resultint}0% {stringed_result}")
-
-        #show all black bars if 0
     
     @commands.command()
     async def love(self, ctx, member: discord.Member = None):
@@ -52,10 +50,16 @@ class games(commands.Cog):
         embed = discord.Embed(timestamp=datetime.datetime.utcnow(), colour=0xd09adf)
         file = discord.File("profile.jpg", filename="profile.jpg")
         embed.set_image(url="attachment://profile.jpg")
+        embed.set_footer(text=f"Requested by {ctx.author}", icon_url=f"{ctx.author.avatar_url}")
         author = ctx.author
         await self.lovemaker(ctx, embed, member)
         await self.editimage(embed, author, member)
         await ctx.send(file=file, embed=embed)
+    
+
+    """
+    ERROR HANDLERS DOWN HERE LELEOELKOELEOELLOLLLOOKLLOOOLOLOL
+    """
 
 def setup(client):
     client.add_cog(games(client))
