@@ -7,20 +7,16 @@ client = discord.Client()
 extensions = {
     "cogs.spotify",
     "cogs.games",
-    "cogs.meme"
+    "cogs._setup",
+    "cogs.config"
 }
 
-class setup():
-    def __init__(self, guildid):
-        self.fetch_prefix(guildid)
-    
-    async def fetch_prefix(self, guildid):
-        with open("./cogs/guildconfig.json", "w") as jason:
-            joemama = json.load(jason)
-        for guild in joemama["Guilds"]:
-            print(guild)
+def get_prefix(client, message) -> str:
+    with open("./cogs/guildconfig.json") as jason:
+        joemama = json.load(jason)
+    return str(joemama["Guilds"][0][f"{message.guild.id}"]["prefix"])
 
-client = commands.Bot(command_prefix=commands.when_mentioned_or("-"))
+client = commands.Bot(command_prefix=(get_prefix))
 
 @client.event
 async def on_ready():
@@ -36,13 +32,5 @@ async def on_command_error(ctx, error):
         await ctx.send(f'{ctx.command} is disabled.')
     elif isinstance(error, commands.BotMissingPermissions):
         await ctx.send("The bot is missing permissions.")
-
-@client.command()
-@has_permissions(administrator=True)
-async def setup(ctx):
-    
-
-# get prefix from guild config file
-
 
 client.run("")
