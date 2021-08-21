@@ -2,13 +2,16 @@ import discord
 from discord.ext import commands
 import json
 
+# python 3.8.6
+
 client = discord.Client()
 
 extensions = {
     "cogs.spotify",
     "cogs.games",
     "cogs._setup",
-    "cogs.config"
+    "cogs.config",
+    "cogs.Music"
 }
 
 def get_prefix(client, message) -> str:
